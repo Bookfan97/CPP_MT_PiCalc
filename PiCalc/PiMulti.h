@@ -4,17 +4,17 @@
 #include <thread>
 #include <vector>
 
-class PiTask
+class PiMulti
 {
 private:
 	std::atomic<long> taskCount;
 	int count = 0, numMax, randomPointsToCompute, x, y, num, randNum, numThreads, numInCircle = 0;
 	const int NUM_POINTS = 100;
-	float areaEstimate = 0.5, area, pi;
+	float areaEstimate = 0.5, area, pi_multi;
 public:
-	PiTask();
+	PiMulti();
 	int totalCount[];
-	void run();
+	void runTask();
 	int getCount();
 	int getNumMax();
 	int getNumPoints();

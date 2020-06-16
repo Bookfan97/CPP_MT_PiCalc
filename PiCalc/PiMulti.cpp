@@ -1,39 +1,46 @@
-#include "PiTask.h"
+#include "PiMulti.h"
 
 using namespace std;
 
-PiTask::PiTask()
+PiMulti::PiMulti()
 {
 	numThreads = (std::thread::hardware_concurrency());
+	std::thread t_tmp;
 	//Based on the Ryzen 9 3950X CPU
-	//std::thread myThreads[32];
-	std::vector<std::thread> threads(numThreads);
-	for (int i = 0; i < numThreads - 1; i++)
+	std::thread myThreads[32];
+	std::vector<std::thread> threads;
+	threads.begin();
+	std::thread t[32];
+	for (int i = 0; i < numThreads; i++)
 	{
 		//	//myThreads[i] = (pt.run()); //thread thread(pt.run(), i);
 		//	//auto tmp_thread = std::thread(&PiTask::run, i);
-		threads.push_back(std::thread());//&PiTask::run, this));
+		//threads.push_back(move(std::thread(&run)));//&PiTask::run, this));
+		//std::thread th(&PiTask/*::run, i);
+		//threads.push_back(th);*/
+		//threads.push_back(std::thread(). );
+		//t[i] = std::thread(runTask);
+		//myThreads[i] = std::thread(&run);
 		//	//std::thread([this] {this->pt.run(); });
 		//	auto handle = std::async(std::launch::async, exec, ping.c_str());
 		//	work.push_back(handle.get());
-		run();
+		//run();
 	}
 	/*for (int i = 0; i < numThreads; i++)
 	{
 		myThreads[i].join();
 	}*/
-	/*for (auto& th : threads) {
+	for (auto& th : threads) {
 		th.join();
-	}*/
+	}
 	numInCircle = getCount(); //+= getTotal(numThreads);
 	//numInCircle = 2;//task1.getCount() + task2.getCount();
 
 	area = ((float)numInCircle / NUM_POINTS);
-	pi = area / (float)0.25;
-	cout << "Pi (est): " << pi << endl;
+	pi_multi = area / (float)0.25;
+	cout << "Pi Estimate (Multi core): " << pi_multi << endl;
 }
-
-void PiTask::run()
+void PiMulti::runTask()
 {
 	for (int i = 0; i < NUM_POINTS / numThreads; i++)
 	{
@@ -47,33 +54,23 @@ void PiTask::run()
 	}
 }
 
-int PiTask::getCount()
+int PiMulti::getCount()
 {
 	return count;
 }
 
-int PiTask::getNumMax()
+int PiMulti::getNumMax()
 {
 	numMax = numCalc(100, 100);
 	return 0;
 }
 
-int PiTask::getNumPoints()
+int PiMulti::getNumPoints()
 {
 	return NUM_POINTS;
 }
 
-int PiTask::numCalc(int x, int y)
+int PiMulti::numCalc(int x, int y)
 {
 	return sqrt(pow(x, 2) + pow(y, 2));
-}
-
-int PiTask::getTotal(int totalThreads)
-{
-	int total = 0;
-	for (int i = 0; i < totalThreads; i++)
-	{
-		total += totalCount[i];
-	}
-	return total;
 }
