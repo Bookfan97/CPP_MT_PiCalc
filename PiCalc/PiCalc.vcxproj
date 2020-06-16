@@ -140,12 +140,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PiMulti.cpp" />
-    <ClCompile Include="PiSingle.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="PiMulti.h" />
-    <ClInclude Include="PiSingle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
