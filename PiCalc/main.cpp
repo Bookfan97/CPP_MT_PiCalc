@@ -15,10 +15,10 @@ using namespace std::chrono;
 const auto PiValue = 3.141592653589793238;
 //Calculates the amount of threads available based on CPU
 const auto num_threads = std::thread::hardware_concurrency();
-//Max count 
+//Max count
 auto max_total_count = 100000000000;
 
-//Method for running calculations for PI 
+//Method for running calculations for PI
 void doCalcs(int total_iterations, int& in_count_result)
 {
 	auto seed = std::random_device{}();
@@ -116,7 +116,7 @@ void main()
 		stCount[counter][1] = st_pi;
 		stCount[counter][2] = st_acc;
 		stCount[counter][3] = (double)time_span_single.count();
-		
+
 		//Multithread
 		auto startTime_multi = high_resolution_clock::now();
 		double mt_pi = threadRun(num_threads, total_count);
@@ -126,19 +126,19 @@ void main()
 		mtCount[counter][1] = mt_pi;
 		mtCount[counter][2] = mt_acc;
 		mtCount[counter][3] = (double)time_span_multi.count();
-		
+
 		counter++;
 		ClearScreen();
 	}
 	OutputResults(counter, totalCount, stCount, mtCount);
 }
 
-
 //Seperate Method for Outputting results
 void OutputResults(int counter, int  totalCount[100], double  stCount[100][3], double  mtCount[100][3])
 {
-	int colWidth = 10, st_avg_value, st_avg_acc, st_avg_time, mt_avg_value, mt_avg_acc, mt_avg_time;
-	cout << setw(colWidth) << "                           "
+	int colWidth = 10;
+	float st_avg_value = 0.0f, st_avg_acc = 0.0f, st_avg_time = 0.0f, mt_avg_value = 0.0f, mt_avg_acc = 0.0f, mt_avg_time = 0.0f;
+	cout << setw(colWidth) << " "
 		<< setw(colWidth) << "|"
 		<< setw(colWidth * 3) << "Single Core"
 		<< setw(colWidth) << "|"
@@ -180,9 +180,9 @@ void OutputResults(int counter, int  totalCount[100], double  stCount[100][3], d
 	}
 
 	st_avg_value = st_avg_value / counter;
-	st_avg_acc += st_avg_acc / counter;
-	mt_avg_value += mt_avg_value / counter;
-	mt_avg_acc += mt_avg_acc / counter;
+	st_avg_acc = st_avg_acc / counter;
+	mt_avg_value = mt_avg_value / counter;
+	mt_avg_acc = mt_avg_acc / counter;
 
 	cout << "--------------------------------------------------------------------------------------------" << endl;
 	cout << setprecision(0)
@@ -194,7 +194,7 @@ void OutputResults(int counter, int  totalCount[100], double  stCount[100][3], d
 		<< setw(colWidth) << "|"
 		<< setw(colWidth) << mt_avg_value << setprecision(4)
 		<< setw(colWidth) << mt_avg_acc << "%"
-		<< setw(colWidth) << mt_avg_time
+		<< setw(colWidth) << mt_avg_time << setprecision(4)
 		<< endl;
 }
 
@@ -205,7 +205,6 @@ void ClearScreen()
 	system("cls");
 	cout << "\033[2J\033[1;1H";
 }
-
 
 //Adapted from https://www.geeksforgeeks.org/how-to-create-a-command-line-progress-bar-in-c-c/
 void loadingBar(int current, int mult)
@@ -226,7 +225,7 @@ void loadingBar(int current, int mult)
 	printf("\t\t\t\t\t");
 
 	//Filled loading bar
-	for (int i = 0; i < current * mult; i++) 
+	for (int i = 0; i < current * mult; i++)
 	{
 		printf("%c", b);
 	}
