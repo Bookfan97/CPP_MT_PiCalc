@@ -137,7 +137,7 @@ void main()
 //Seperate Method for Outputting results
 void OutputResults(int counter, int  totalCount[100], double  stCount[100][3], double  mtCount[100][3])
 {
-	int colWidth = 10;
+	int colWidth = 10, st_avg_value, st_avg_acc, st_avg_time, mt_avg_value, mt_avg_acc, mt_avg_time;
 	cout << setw(colWidth) << "                           "
 		<< setw(colWidth) << "|"
 		<< setw(colWidth * 3) << "Single Core"
@@ -170,8 +170,32 @@ void OutputResults(int counter, int  totalCount[100], double  stCount[100][3], d
 			<< setw(colWidth) << mtCount[i][2] << "%"
 			<< setw(colWidth) << mtCount[i][3]
 			<< endl;
+
+		st_avg_value += stCount[i][1];
+		st_avg_acc += stCount[i][2];
+		st_avg_time += stCount[i][3];
+		mt_avg_value += mtCount[i][1];
+		mt_avg_acc += mtCount[i][2];
+		mt_avg_time += mtCount[i][3];
 	}
+
+	st_avg_value = st_avg_value / counter;
+	st_avg_acc += st_avg_acc / counter;
+	mt_avg_value += mt_avg_value / counter;
+	mt_avg_acc += mt_avg_acc / counter;
+
 	cout << "--------------------------------------------------------------------------------------------" << endl;
+	cout << setprecision(0)
+		<< setw(colWidth) << " "
+		<< setw(colWidth) << "|"
+		<< setw(colWidth) << st_avg_value << setprecision(4)
+		<< setw(colWidth) << st_avg_acc << "%"
+		<< setw(colWidth) << st_avg_time
+		<< setw(colWidth) << "|"
+		<< setw(colWidth) << mt_avg_value << setprecision(4)
+		<< setw(colWidth) << mt_avg_acc << "%"
+		<< setw(colWidth) << mt_avg_time
+		<< endl;
 }
 
 //Clears screens with commands for Windows, Linux, macOS
